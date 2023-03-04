@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Oxygen Sensor Readings</title>
+  </head>
+  <body>
+    <h1>Oxygen Sensor Readings</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>Oxygen Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for reading in readings %}
+          <tr>
+            <td>{{ reading.timestamp }}</td>
+            <td>{{ reading.oxygen_level }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

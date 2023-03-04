@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -23,7 +23,7 @@ def oxygen_data():
             'oxygen_level': result.oxygen_level
         }
         readings.append(oxygen_level)
-    return jsonify(readings)
+    return render_template('index.html', readings=readings)
 
 
 if __name__ == '__main__':
