@@ -1,25 +1,36 @@
 <!doctype html>
 <html>
-  <head>
+<head>
+    <link rel="stylesheet" href="../static/index.css">
     <title>Oxygen Sensor Readings</title>
-  </head>
-  <body>
-    <h1>Oxygen Sensor Readings</h1>
-    <table>
-      <thead>
+
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<canvas id="myChart"></canvas>
+<script src="../static/index.js"></script>
+<h1>Oxygen Sensor Readings</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Timestamp</th>
+        <th>Oxygen Level</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for reading in readings %}
         <tr>
-          <th>Timestamp</th>
-          <th>Oxygen Level</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for reading in readings %}
-          <tr>
             <td>{{ reading.timestamp }}</td>
-            <td>{{ reading.oxygen_level }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </body>
+            {% if reading.oxygen_level < 19 %}
+                <td class="low">{{ reading.oxygen_level }}</td>
+            {% elif reading.oxygen_level > 22 %}
+                <td class="high">{{ reading.oxygen_level }}</td>
+            {% else %}
+                <td class="normal">{{ reading.oxygen_level }}</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
 </html>

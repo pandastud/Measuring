@@ -1,29 +1,25 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:DeAdPoOl2001@localhost:3306/diploma_schema'
 db = SQLAlchemy(app)
+cors = CORS(app)
 
 
-class OxygenSensor(db.Model):
-    __tablename__ = 'oxygen_data'
+class OxygenData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, nullable=False)
     oxygen_level = db.Column(db.Float, nullable=False)
 
 
-@app.route('/oxygen')
-def oxygen_data():
-    results = OxygenSensor.query.all()
-    readings = []
-    for result in results:
-        oxygen_level = {
-            'timestamp': result.timestamp,
-            'oxygen_level': result.oxygen_level
-        }
-        readings.append(oxygen_level)
-    return render_template('index.html', readings=readings)
+@app.route('/api/oxygen')
+@cross_origin()
+def get_oxygen_data():
+    oxygen_data = OxygenData.query.all()
+    result = [{'id': o.id, 'timestamp': o.timestamp, 'oxygen_level': o.oxygen_level} for o in oxygen_data]
+    return jsonify(result)
 
 
 if __name__ == '__main__':
