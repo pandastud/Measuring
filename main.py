@@ -15,7 +15,7 @@ c = conn.cursor()
 #              (timestamp DATETIME, oxygen_level FLOAT)''')
 
 while True:
-    oxygen_level = random.uniform(0, 100)
+    oxygen_level = random.uniform(0, 5)
 
     current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
 

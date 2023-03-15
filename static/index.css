@@ -1,0 +1,14 @@
+.high {
+  color: red;
+  font-weight: bold;
+}
+
+.low {
+  color: blue;
+ font-weight: bold;
+}
+
+.normal{
+  color: black;
+  font-weight: bold;
+}
